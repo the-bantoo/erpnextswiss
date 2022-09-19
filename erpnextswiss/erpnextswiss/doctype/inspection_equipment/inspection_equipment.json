@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "autoname": "field:title",
  "creation": "2019-09-09 13:48:54.920597",
  "doctype": "DocType",
@@ -138,8 +139,10 @@
   {
    "fieldname": "calibration_test_set",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Calibration Test Set",
-   "options": "Calibration Test Set"
+   "options": "Calibration Test Set",
+   "reqd": 1
   },
   {
    "fieldname": "taken_by",
@@ -149,10 +152,12 @@
   }
  ],
  "image_field": "equipment_image",
- "modified": "2020-01-13 14:27:57.511422",
+ "links": [],
+ "modified": "2022-09-19 13:58:16.511614",
  "modified_by": "Administrator",
  "module": "ERPNextSwiss",
  "name": "Inspection Equipment",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
@@ -171,5 +176,6 @@
  "quick_entry": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "track_changes": 1
 }

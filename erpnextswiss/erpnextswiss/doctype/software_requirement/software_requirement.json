@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "autoname": "naming_series:",
  "creation": "2021-01-26 06:46:20.742012",
  "doctype": "DocType",
@@ -33,10 +34,12 @@
    "reqd": 1
   }
  ],
- "modified": "2021-01-26 21:15:49.006288",
+ "links": [],
+ "modified": "2022-09-19 12:52:20.591123",
  "modified_by": "Administrator",
  "module": "ERPNextSwiss",
  "name": "Software Requirement",
+ "naming_rule": "By \"Naming Series\" field",
  "owner": "Administrator",
  "permissions": [
   {
@@ -68,6 +71,7 @@
  "search_fields": "title,description",
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "title_field": "title",
  "track_changes": 1
 }

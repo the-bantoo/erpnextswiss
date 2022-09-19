@@ -24,7 +24,7 @@ class DirectDebitProposal(Document):
                         frappe.throw( _("Please provide a skonto account and cost center.") )
     def on_submit(self):
         # clean payments (to prevent accumulation on re-submit)
-        self.payments = {}
+        self.payments = []
         # create the aggregated payment table
         # collect customers
         customers = []
@@ -51,12 +51,15 @@ class DirectDebitProposal(Document):
                             "Sales Invoice", sales_invoice.sales_invoice, datetime.now(),
                             sales_invoice.amount, sales_invoice.outstanding_amount)
             # add new payment record
+
+            frappe.errprint("customer "+ customer)
+            frappe.errprint("curr "+ invoice.currency)
             new_payment = self.append('payments', {})
             new_payment.customer = customer
             new_payment.amount = amount
-            new_payment.currency = currency
+            new_payment.currency = invoice.currency
             new_payment.reference = " ".join(references)
-
+            
         # save
         self.save()
 

@@ -21,35 +21,36 @@ class PaymentProposal(Document):
             or not company_address.address_line1
             or not company_address.pincode
             or not company_address.city):
-                frappe.throw( _("Company address missing or incomplete.") )
+                frappe.throw( _("Company address missing or incomplete. Please pincode, city and address 1 within the Address linked in the Company doctype") )
         if self.pay_from_account:
             payment_account = frappe.get_doc('Account', self.pay_from_account)
             if not payment_account.iban:
-                frappe.throw( _("IBAN missing in pay from account.") )
+                frappe.throw( _("{0}: no account IBAN found ({1})".format(
+                    payment.references, self.pay_from_account) ) )
         # perform some checks to improve file quality/stability
         for purchase_invoice in self.purchase_invoices: 
             pinv = frappe.get_doc("Purchase Invoice", purchase_invoice.purchase_invoice)
             # check addresses (mandatory in ISO 20022
             if not pinv.supplier_address:
-                frappe.throw( _("Address missing for purchase invoice <a href=\"/desk#Form/Purchase Invoice/{0}\">{0}</a>").format(pinv.name) )
+                frappe.throw( _("Address missing for purchase invoice <a href=\"/app/purchase-invoice/{0}\">{0}</a>").format(pinv.name) )
             # check target account info
             if purchase_invoice.payment_type == "ESR":
                 if not purchase_invoice.esr_reference or not purchase_invoice.esr_participation_number:
-                    frappe.throw( _("ESR: missing transaction information (participant number or reference) in <a href=\"/desk#Form/Purchase Invoice/{0}\">{0}</a>").format(pinv.name) )
+                    frappe.throw( _("ESR: missing transaction information (participant number or reference) in <a href=\"/app/purchase-invoice/{0}\">{0}</a>").format(pinv.name) )
             else:
                 supl = frappe.get_doc("Supplier", pinv.supplier)
                 if not supl.iban:
-                    frappe.throw( _("Missing IBAN for purchase invoice <a href=\"/desk#Form/Purchase Invoice/{0}\">{0}</a>").format(pinv.name) )
+                    frappe.throw( _("Missing IBAN for supplier of purchase invoice <a href=\"/app/purchase-invoice/{0}\">{0}</a>").format(pinv.name) )
         # check expense records
         for expense_claim in self.expenses:
             emp = frappe.get_doc("Employee", expense_claim.employee)
             if not emp.bank_ac_no:
-                frappe.throw( _("Employee <a href=\"/desk#Form/Employee/{0}\">{0}</a> has no bank account number.").format(emp.name) )
+                frappe.throw( _("Employee <a href=\"/app/employee/{0}\">{0}</a> has no bank account number.").format(emp.name) )
         return
         
     def on_submit(self):
         # clean payments (to prevent accumulation on re-submit)
-        self.payments = {}
+        self.payments = []
         # create the aggregated payment table
         # collect customers
         suppliers = []
@@ -146,7 +147,7 @@ class PaymentProposal(Document):
             # add new payment record
             emp = frappe.get_doc("Employee", employee)
             if not emp.permanent_address:
-                frappe.throw( _("Employee <a href=\"/desk#Form/Employee/{0}\">{0}</a> has no address.").format(emp.name) )
+                frappe.throw( _("Employee <a href=\"/app/employee/{0}\">{0}</a> has no address.").format(emp.name) )
             address_lines = emp.permanent_address.split("\n")
             cntry = frappe.get_value("Company", emp.company, "country")
             self.add_payment(emp.employee_name, emp.bank_ac_no, "IBAN",
@@ -167,7 +168,7 @@ class PaymentProposal(Document):
             # add new payment record
             emp = frappe.get_doc("Employee", salary.employee)
             if not emp.permanent_address:
-                frappe.throw( _("Employee <a href=\"/desk#Form/Employee/{0}\">{0}</a> has no address.").format(emp.name) )
+                frappe.throw( _("Employee <a href=\"/app/employee/{0}\">{0}</a> has no address.").format(emp.name) )
             address_lines = emp.permanent_address.split("\n")
             cntry = frappe.get_value("Company", emp.company, "country")
             self.add_payment(emp.employee_name, emp.bank_ac_no, "IBAN",

@@ -7,25 +7,29 @@ frappe.ui.form.on('Calibration Test', {
 	},
 	perform_test: function (frm) {
 		var div_for_test = document.getElementById("perform_test_div");
-		div_for_test.appendChild(create_div_list(frm));
-		var items = cur_frm.doc.test_plan_items;
-		var to_open = '';
-		items.forEach(function(entry) {
-			div_for_test.appendChild(create_div_tests(frm, entry));
-			if (entry.inspection_decision_ok == '0') {
-				if (to_open == '') {
-					to_open = entry.name;
+		if (frm.doc.test_plan_items){
+			div_for_test.appendChild(create_div_list(frm));
+			var items = cur_frm.doc.test_plan_items;
+			var to_open = '';
+			items.forEach(function(entry) {
+				div_for_test.appendChild(create_div_tests(frm, entry));
+				if (entry.inspection_decision_ok == '0') {
+					if (to_open == '') {
+						to_open = entry.name;
+					}
 				}
-			}
-		});
+			});
+		}
 		console.log(to_open);
 		if (to_open != '') {
 			document.getElementById(to_open + "_to_open").click();
 		}
+		
 	}
 });
 
 function create_div_list(frm) {
+	
 	var col_4_container = document.createElement("div");
 	col_4_container.classList.add("col-sm-4");
 	
