@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">ERPNext Swiss</span>\",\"col\":12}},{\"type\":\"card\",\"data\":{\"card_name\":\"Banking/Accounting\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"HR\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"CRM\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Item/Production\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Tax\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"ERPNextSwiss Settings\",\"col\":4}}]",
+ "content": "[{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">ERPNext Swiss</span>\",\"col\":12}},{\"type\":\"card\",\"data\":{\"card_name\":\"Banking\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Tax\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"HR\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Finance\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Integrations\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"EDI\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Quality\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Point of Sale\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"ERPNextSwiss Settings\",\"col\":4}}]",
  "creation": "2022-09-17 09:55:18.748865",
  "docstatus": 0,
  "doctype": "Workspace",
@@ -32,58 +32,9 @@
   },
   {
    "hidden": 0,
-   "icon": "crm",
-   "is_query_report": 0,
-   "label": "CRM",
-   "link_count": 4,
-   "onboard": 0,
-   "type": "Card Break"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Contract",
-   "link_count": 0,
-   "link_to": "Contract",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Non Conformity Report 8D",
-   "link_count": 0,
-   "link_to": "Non Conformity Report 8D",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Abacus Export File",
-   "link_count": 0,
-   "link_to": "Abacus Export File",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Specification Document",
-   "link_count": 0,
-   "link_to": "Specification Document",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
    "icon": "accounting",
    "is_query_report": 0,
-   "label": "Banking/Accounting",
+   "label": "Banking",
    "link_count": 4,
    "onboard": 0,
    "type": "Card Break"
@@ -130,10 +81,78 @@
   },
   {
    "hidden": 0,
+   "icon": "money-coins-1",
+   "is_query_report": 0,
+   "label": "Tax",
+   "link_count": 2,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "VAT Declaration",
+   "link_count": 0,
+   "link_to": "VAT Declaration",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "VAT query",
+   "link_count": 0,
+   "link_to": "VAT query",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
    "icon": "file",
    "is_query_report": 0,
-   "label": "Item/Production",
-   "link_count": 13,
+   "label": "EDI",
+   "link_count": 3,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "EDI File",
+   "link_count": 0,
+   "link_to": "EDI File",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "EDI Connection",
+   "link_count": 0,
+   "link_to": "EDI Connection",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "EDI Sales",
+   "link_count": 0,
+   "link_to": "EDI Sales Report",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "icon": "retail",
+   "is_query_report": 0,
+   "label": "Point of Sale",
+   "link_count": 1,
    "onboard": 0,
    "type": "Card Break"
   },
@@ -143,6 +162,25 @@
    "label": "Daily Closing Statement",
    "link_count": 0,
    "link_to": "Daily Closing Statement",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "icon": "quality",
+   "is_query_report": 0,
+   "label": "Quality",
+   "link_count": 6,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Non Conformity Report 8D",
+   "link_count": 0,
+   "link_to": "Non Conformity Report 8D",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -180,26 +218,6 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Software Requirement",
-   "link_count": 0,
-   "link_to": "Software Requirement",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Software Specification",
-   "link_count": 0,
-   "link_to": "Software Specification",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
    "label": "Calibration Test",
    "link_count": 0,
    "link_to": "Calibration Test",
@@ -219,69 +237,19 @@
   },
   {
    "hidden": 0,
+   "icon": "tool",
    "is_query_report": 0,
-   "label": "Pincode",
-   "link_count": 0,
-   "link_to": "Pincode",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "HLK Settings",
-   "link_count": 0,
-   "link_to": "HLK Settings",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "HLK Structur Organisation",
-   "link_count": 0,
-   "link_to": "HLK Structur Organisation",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "HLK Text Template",
-   "link_count": 0,
-   "link_to": "HLK Text Template",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Label Printer",
-   "link_count": 0,
-   "link_to": "Label Printer",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "icon": "money-coins-1",
-   "is_query_report": 0,
-   "label": "Tax",
-   "link_count": 5,
+   "label": "Integrations",
+   "link_count": 3,
    "onboard": 0,
    "type": "Card Break"
   },
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "VAT Declaration",
+   "label": "Abacus Export File",
    "link_count": 0,
-   "link_to": "VAT Declaration",
+   "link_to": "Abacus Export File",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -289,9 +257,9 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "VAT query",
+   "label": "Abacus Export File Reference",
    "link_count": 0,
-   "link_to": "VAT query",
+   "link_to": "Abacus Export File Reference",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -299,48 +267,9 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "EDI File",
+   "label": "Datatrans Settings",
    "link_count": 0,
-   "link_to": "EDI File",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "EDI Connection",
-   "link_count": 0,
-   "link_to": "EDI Connection",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "EDI Sales Report",
-   "link_count": 0,
-   "link_to": "EDI Sales Report",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "icon": "setting",
-   "is_query_report": 0,
-   "label": "ERPNextSwiss Settings",
-   "link_count": 1,
-   "onboard": 0,
-   "type": "Card Break"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "ERPNextSwiss Settings",
-   "link_count": 0,
-   "link_to": "ERPNextSwiss Settings",
+   "link_to": "Datatrans Settings",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -350,7 +279,7 @@
    "icon": "hr",
    "is_query_report": 0,
    "label": "HR",
-   "link_count": 4,
+   "link_count": 3,
    "onboard": 0,
    "type": "Card Break"
   },
@@ -377,9 +306,28 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Datatrans Settings",
+   "label": "Salary Certificate",
    "link_count": 0,
-   "link_to": "Datatrans Settings",
+   "link_to": "Salary Certificate",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "icon": "setting",
+   "is_query_report": 0,
+   "label": "ERPNextSwiss Settings",
+   "link_count": 6,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "ERPNextSwiss Settings",
+   "link_count": 0,
+   "link_to": "ERPNextSwiss Settings",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -387,15 +335,74 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Municipality",
+   "label": "Label Printer",
    "link_count": 0,
-   "link_to": "Municipality",
+   "link_to": "Label Printer",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Pincode",
+   "link_count": 0,
+   "link_to": "Pincode",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Worktime Settings",
+   "link_count": 0,
+   "link_to": "Worktime Settings",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "BankImport Template",
+   "link_count": 0,
+   "link_to": "BankImport Template",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "VAT query",
+   "link_count": 0,
+   "link_to": "VAT query",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "icon": "income",
+   "is_query_report": 0,
+   "label": "Finance",
+   "link_count": 1,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Contract",
+   "link_count": 0,
+   "link_to": "Contract",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
   }
  ],
- "modified": "2022-09-19 13:27:24.879737",
+ "modified": "2022-09-20 11:28:29.839293",
  "modified_by": "Administrator",
  "module": "ERPNextSwiss",
  "name": "Swiss",
