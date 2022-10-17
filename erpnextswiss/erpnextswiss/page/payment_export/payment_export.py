@@ -7,7 +7,7 @@ import frappe
 from frappe import throw, _
 import time
 from erpnextswiss.erpnextswiss.common_functions import get_building_number, get_street_name, get_pincode, get_city
-import cgi              # used to escape xml content
+import cgi, html              # used to escape xml content
 
 @frappe.whitelist()
 def get_payments():
@@ -82,7 +82,7 @@ def generate_payment_file(payments):
             payment_content += make_line("      <Dbtr>")
             # debitor name
             payment_content += make_line("        <Nm>" +
-                cgi.escape(payment_record.company) + "</Nm>")
+                html.escape(payment_record.company) + "</Nm>")
             # postal address (recommendadtion: do not use)
             #content += make_line("        <PstlAdr>")
             #content += make_line("          <Ctry>CH</Ctry>")
@@ -239,8 +239,8 @@ def generate_payment_file(payments):
     except IndexError:
         frappe.msgprint( _("Please select at least one payment."), _("Information") )
         return
-    except:
-        frappe.throw( _("Error while generating xml. Make sure that you made required customisations to the DocTypes.") )
+    except Exception as e:
+        frappe.throw( _("Error while generating xml. Make sure that you made required customisations to the DocTypes. >> ") + str(e) )
         return
 
 def add_creditor_info(payment_record):
