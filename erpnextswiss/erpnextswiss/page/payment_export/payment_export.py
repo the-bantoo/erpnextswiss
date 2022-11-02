@@ -185,6 +185,13 @@ def generate_payment_file(payments):
                 payment_content += make_line("            <CdtrRefInf>")
                 # ESR reference 
                 if payment_record.esr_reference:
+                    
+                    payment_content += make_line("              <Tp>")
+                    payment_content += make_line("                  <CdOrPrtry>")
+                    payment_content += make_line("                     <Prtry>QRR</Prtry>")
+                    payment_content += make_line("                  </CdOrPrtry>")
+                    payment_content += make_line("              </Tp>")
+
                     payment_content += make_line("              <Ref>" +
                         payment_record.esr_reference.replace(" ", "") + "</Ref>")
                 else:
@@ -439,6 +446,7 @@ def generate_payment_file_from_payroll(payroll_entry):
     return generate_pain001(pain001_data)
     
 def generate_pain001(pain001_data):
+
     # creates a pain.001 payment file from a payroll
     #try:       
         # array for skipped payments
@@ -563,6 +571,7 @@ def generate_pain001(pain001_data):
             payment_content += make_line("        </Amt>")
             # creditor account
             # creditor account identification
+            
             if payment['transaction_type'] == "ESR":
                 # add creditor information
                 payment_content += make_line("        <Cdtr>") 
@@ -596,8 +605,17 @@ def generate_pain001(pain001_data):
                 # Creditor Reference Information
                 payment_content += make_line("            <CdtrRefInf>")
                 # ESR reference 
+                
                 if payment['esr_reference']:
+                    
+                    payment_content += make_line("              <Tp>")
+                    payment_content += make_line("                  <CdOrPrtry>")
+                    payment_content += make_line("                     <Prtry>QRR</Prtry>")
+                    payment_content += make_line("                  </CdOrPrtry>")
+                    payment_content += make_line("              </Tp>")
+
                     payment_content += make_line("              <Ref>{0}</Ref>".format(payment['esr_reference']))
+
                 else:
                     # no ESR reference: not valid record, skip
                     content += add_invalid_remark( _("{0}: no ESR reference found").format(payment['name']) )
