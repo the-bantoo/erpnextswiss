@@ -510,6 +510,8 @@ def generate_pain001(pain001_data):
                 content += add_invalid_remark( _("{0}: no account IBAN found ({1})".format(
                     payment, payment_record.paid_from) ) )
                 skipped.append(payment)
+                frappe.throw( _("{0}: no account IBAN found ({1})".format(
+                    payment, payment_record.paid_from) ) )
                 continue
             payment_content += make_line("        </Id>")
             payment_content += make_line("      </DbtrAcct>")
@@ -520,10 +522,18 @@ def generate_pain001(pain001_data):
                 payment_content += make_line("          <BIC>{0}</BIC>".format(pain001_data['paid_from_bic']))
                 payment_content += make_line("        </FinInstnId>")
                 payment_content += make_line("      </DbtrAgt>")
+            else:
+                # no paying account BIC: not valid record, skip
+                content += add_invalid_remark( _("{0}: no account BIC found ({1})".format(
+                    payment, payment_record.paid_from) ) )
+                skipped.append(payment)
+                frappe.throw( _("{0}: no account BIC found ({1})".format(
+                    payment, payment_record.paid_from) ) )
+                continue
                 
             ### Credit Transfer Transaction Information (CdtTrfTxInf, C-Level)
-            #payment_content += make_line("      <CdtTrfTxInf>")
-            payment_content += make_line("      <DbtrAgt>") # changed to DbtrAgt
+            payment_content += make_line("      <CdtTrfTxInf>")
+            #payment_content += make_line("      <DbtrAgt>") # changed to DbtrAgt
             # payment identification
             payment_content += make_line("        <PmtId>")
             # instruction identification 
