@@ -1,7 +1,7 @@
 frappe.pages['payment_export'].on_page_load = function(wrapper) {
 	var page = frappe.ui.make_app_page({
 		parent: wrapper,
-		title: __('Payment export'),
+		title: __('Payment Export'),
 		single_column: true
 	});
 

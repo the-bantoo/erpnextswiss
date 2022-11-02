@@ -90,6 +90,7 @@ def generate_payment_file(payments):
             #content += make_line("        </PstlAdr>")
             payment_content += make_line("      </Dbtr>")
             # debitor account (sender) - IBAN
+            #print('Account', payment_record.paid_from)
             payment_account = frappe.get_doc('Account', payment_record.paid_from)
             payment_content += make_line("      <DbtrAcct>")
             payment_content += make_line("        <Id>")
@@ -101,6 +102,9 @@ def generate_payment_file(payments):
                 content += add_invalid_remark( _("{0}: no account IBAN found ({1})".format(
                     payment, payment_record.paid_from) ) )
                 skipped.append(payment)
+
+                frappe.throw( _("{0}: no account IBAN found ({1})".format(
+                    payment, payment_record.paid_from) ) )
                 continue
             payment_content += make_line("        </Id>")
             payment_content += make_line("      </DbtrAcct>")
@@ -153,6 +157,8 @@ def generate_payment_file(payments):
                     # no address found, skip entry (not valid)
                     content += add_invalid_remark( _("{0}: no address (or country) found").format(payment) )
                     skipped.append(payment)
+
+                    frappe.throw( _("{0}: no address (or country) found").format(payment) )
                     continue
                 # ESR payment
                 payment_content += make_line("        <CdtrAcct>")
@@ -166,6 +172,8 @@ def generate_payment_file(payments):
                     # no particpiation number: not valid record, skip
                     content += add_invalid_remark( _("{0}: no ESR participation number found").format(payment) )
                     skipped.append(payment)
+
+                    frappe.throw( _("{0}: no ESR participation number found").format(payment) )
                     continue
                 payment_content += make_line("            </Othr>")
                 payment_content += make_line("          </Id>")
@@ -183,6 +191,7 @@ def generate_payment_file(payments):
                     # no ESR reference: not valid record, skip
                     content += add_invalid_remark( _("{0}: no ESR reference found").format(payment) )
                     skipped.append(payment)
+                    frappe.throw( _("{0}: no ESR reference found").format(payment) )
                     continue    
                 payment_content += make_line("            </CdtrRefInf>")
                 payment_content += make_line("          </Strd>")
@@ -197,6 +206,7 @@ def generate_payment_file(payments):
                     # no address found, skip entry (not valid)
                     content += add_invalid_remark( _("{0}: no address (or country) found").format(payment) )
                     skipped.append(payment)
+                    frappe.throw( _("{0}: no address (or country) found").format(payment) )
                     continue
                 # creditor agent (BIC, optional; removed to resolve issue #15)
                 #if payment_record.bic:                
@@ -512,7 +522,8 @@ def generate_pain001(pain001_data):
                 payment_content += make_line("      </DbtrAgt>")
                 
             ### Credit Transfer Transaction Information (CdtTrfTxInf, C-Level)
-            payment_content += make_line("      <CdtTrfTxInf>")
+            #payment_content += make_line("      <CdtTrfTxInf>")
+            payment_content += make_line("      <DbtrAgt>") # changed to DbtrAgt
             # payment identification
             payment_content += make_line("        <PmtId>")
             # instruction identification 
