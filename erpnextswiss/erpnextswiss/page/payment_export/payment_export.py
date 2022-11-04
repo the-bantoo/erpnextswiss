@@ -134,11 +134,13 @@ def generate_payment_file(payments):
                 payment_content += make_line("            <Cd>SEPA</Cd>")
                 payment_content += make_line("          </SvcLvl>")
             # local instrument
+            """
             if payment_record.transaction_type == "ESR":
                 payment_content += make_line("          <LclInstrm>")
                 # proprietary (nothing or CH01 for ESR)        
                 payment_content += make_line("            <Prtry>CH01</Prtry>")
-                payment_content += make_line("          </LclInstrm>")        
+                payment_content += make_line("          </LclInstrm>")  
+            """      
             payment_content += make_line("        </PmtTpInf>")
             # amount 
             payment_content += make_line("        <Amt>")
