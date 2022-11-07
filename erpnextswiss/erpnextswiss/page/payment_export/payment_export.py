@@ -34,7 +34,7 @@ def generate_payment_file(payments):
         # create xml header
         content = make_line("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
         # define xml template reference
-        content += make_line("<Document xmlns=\"http://www.six-interbank-clearing.com/de/pain.001.001.03.ch.02.xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.six-interbank-clearing.com/de/pain.001.001.03.ch.02.xsd  pain.001.001.03.ch.02.xsd\">")
+        content += make_line("<Document xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.six-interbank-clearing.com/de/pain.001.001.03.ch.02.xsd\" xsi:schemaLocation=\"http://www.six-interbank-clearing.com/de/pain.001.001.03.ch.02.xsd  pain.001.001.03.ch.02.xsd\">")
         # transaction holder
         content += make_line("  <CstmrCdtTrfInitn>")
         ### Group Header (GrpHdr, A-Level)
@@ -126,22 +126,26 @@ def generate_payment_file(payments):
             payment_content += make_line("          <EndToEndId>" + payment + "</EndToEndId>")
             payment_content += make_line("        </PmtId>")
             # payment type information
-            payment_content += make_line("        <PmtTpInf>")
             # service level: only used for SEPA (currently not implemented)
             if payment_record.transaction_type == "SEPA":
+
+                payment_content += make_line("        <PmtTpInf>")
                 payment_content += make_line("          <SvcLvl>")
                 # service level code (e.g. SEPA)
                 payment_content += make_line("            <Cd>SEPA</Cd>")
                 payment_content += make_line("          </SvcLvl>")
+                payment_content += make_line("        </PmtTpInf>")
             # local instrument
             """
             if payment_record.transaction_type == "ESR":
+
+                payment_content += make_line("        <PmtTpInf>")
                 payment_content += make_line("          <LclInstrm>")
                 # proprietary (nothing or CH01 for ESR)        
                 payment_content += make_line("            <Prtry>CH01</Prtry>")
-                payment_content += make_line("          </LclInstrm>")  
+                payment_content += make_line("          </LclInstrm>") 
+                payment_content += make_line("        </PmtTpInf>") 
             """      
-            payment_content += make_line("        </PmtTpInf>")
             # amount 
             payment_content += make_line("        <Amt>")
             payment_content += make_line("          <InstdAmt Ccy=\"{0}\">{1:.2f}</InstdAmt>".format(
@@ -165,11 +169,11 @@ def generate_payment_file(payments):
                 # ESR payment
                 payment_content += make_line("        <CdtrAcct>")
                 payment_content += make_line("          <Id>")
-                payment_content += make_line("            <Othr>")
+                #payment_content += make_line("            <Othr>")
                 # ESR participant number
                 if payment_record.esr_participant_number:
-                    payment_content += make_line("              <Id>" +
-                        payment_record.esr_participant_number + "</Id>")
+                    payment_content += make_line("              <IBAN>" +
+                        payment_record.esr_participant_number + "</IBAN>")
                 else:
                     # no particpiation number: not valid record, skip
                     content += add_invalid_remark( _("{0}: no ESR participation number found").format(payment) )
@@ -177,7 +181,7 @@ def generate_payment_file(payments):
 
                     frappe.throw( _("{0}: no ESR participation number found").format(payment) )
                     continue
-                payment_content += make_line("            </Othr>")
+                #payment_content += make_line("            </Othr>")
                 payment_content += make_line("          </Id>")
                 payment_content += make_line("        </CdtrAcct>")
                 # Remittance Information
@@ -187,7 +191,8 @@ def generate_payment_file(payments):
                 payment_content += make_line("            <CdtrRefInf>")
                 # ESR reference 
                 if payment_record.esr_reference:
-                    
+
+                    # creditor agent (BIC, optional; removed to resolve issue #15)
                     payment_content += make_line("              <Tp>")
                     payment_content += make_line("                  <CdOrPrtry>")
                     payment_content += make_line("                     <Prtry>QRR</Prtry>")
@@ -246,7 +251,7 @@ def generate_payment_file(payments):
             transaction_count += 1
             control_sum += payment_record.paid_amount
             content += payment_content
-            payment_record.submit()
+            #payment_record.submit()
         # add footer
         content += make_line("  </CstmrCdtTrfInitn>")
         content += make_line("</Document>")
@@ -488,6 +493,8 @@ def generate_pain001(pain001_data):
             # create temporary code block to compile the payment record (only add to overall on submit)
             # use 'continue' to skip a record (in case a validation fails)
             payment_content = ""
+            # retrieve the payment entry record
+            payment_record = frappe.get_doc('Payment Entry', payment)
             # create the payment entries
             payment_content += make_line("    <PmtInf>")
             # unique (in this file) identification for the payment ( e.g. PMTINF-01, PMTINF-PE-00005 )
@@ -532,6 +539,7 @@ def generate_pain001(pain001_data):
                 payment_content += make_line("          <BIC>{0}</BIC>".format(pain001_data['paid_from_bic']))
                 payment_content += make_line("        </FinInstnId>")
                 payment_content += make_line("      </DbtrAgt>")
+                
             else:
                 # no paying account BIC: not valid record, skip
                 content += add_invalid_remark( _("{0}: no account BIC found ({1})".format(
@@ -589,16 +597,16 @@ def generate_pain001(pain001_data):
                 # ESR payment
                 payment_content += make_line("        <CdtrAcct>")
                 payment_content += make_line("          <Id>")
-                payment_content += make_line("            <Othr>")
+                #payment_content += make_line("            <Othr>")
                 # ESR participant number
                 if payment['esr_participant_no']:
-                    payment_content += make_line("              <Id>{0}</Id>".format(payment['esr_participant_no']))
+                    payment_content += make_line("              <IBAN>{0}</IBAN>".format(payment['esr_participant_no']))
                 else:
                     # no particpiation number: not valid record, skip
                     content += add_invalid_remark( _("{0}: no ESR participation number found").format(payment['name']) )
                     skipped.append(payment['name'])
                     continue
-                payment_content += make_line("            </Othr>")
+                #payment_content += make_line("            </Othr>")
                 payment_content += make_line("          </Id>")
                 payment_content += make_line("        </CdtrAcct>")
                 # Remittance Information
@@ -616,7 +624,7 @@ def generate_pain001(pain001_data):
                     payment_content += make_line("                  </CdOrPrtry>")
                     payment_content += make_line("              </Tp>")
 
-                    payment_content += make_line("              <Ref>{0}</Ref>".format(payment['esr_reference']))
+                    payment_content += make_line("              <Ref>{0}</Ref>".format(payment['esr_reference']))  
 
                 else:
                     # no ESR reference: not valid record, skip
@@ -638,15 +646,8 @@ def generate_pain001(pain001_data):
                 payment_content += make_line("            <TwnNm>{0}</TwnNm>".format(payment['receiver_city']))
                 payment_content += make_line("            <Ctry>{0}</Ctry>".format(payment['receiver_country']))
                 payment_content += make_line("          </PstlAdr>")
-                payment_content += make_line("        </Cdtr>") 
-                # creditor agent (BIC, optional; removed to resolve issue #15)
-                #if payment_record.bic:                
-                #    payment_content += make_line("        <CdtrAgt>")
-                #    payment_content += make_line("          <FinInstnId>")
-                #    payment_content += make_line("            <BIC>" + 
-                #        payment_record.bic + "</BIC>")
-                #    payment_content += make_line("          </FinInstnId>")
-                #    payment_content += make_line("        </CdtrAgt>")    
+                payment_content += make_line("        </Cdtr>")
+
                 # creditor account
                 payment_content += make_line("        <CdtrAcct>")
                 payment_content += make_line("          <Id>")
